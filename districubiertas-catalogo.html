@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Districubiertas - Catálogo Profesional de Cubiertas</title>
+    <style>
+        :root {
+            --primary: #0056b3;
+            --secondary: #004085;
+            --accent: #ff9800;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            height: 500px;
+            color: white;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #e68a00;
+        }
+        
+        /* Features */
+        .features {
+            padding: 50px 0;
+            background-color: white;
+        }
+        
+        .features-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .feature {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 20px;
+            margin: 10px;
+        }
+        
+        .feature i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .feature h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        /* Catalog */
+        .catalog {
+            padding: 70px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        .catalog-nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .catalog-nav-item {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #eee;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .catalog-nav-item.active,
+        .catalog-nav-item:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-img {
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-img img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+        
+        .product-price {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .product-details {
+            padding: 20px;
+        }
+        
+        .product-details h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .product-specs {
+            margin: 15px 0;
+        }
+        
+        .product-specs p {
+            margin: 5px 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .product-specs strong {
+            color: var(--dark);
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+        
+        .cta-btn:hover {
+            background-color: var(--secondary);
+        }
+        
+        /* About */
+        .about {
+            padding: 70px 0;
+            background-color: var(--light);
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .about-img {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .about-img img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .about-text p {
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: var(--gray);
+        }
+        
+        /* Contact */
+        .contact {
+            padding: 70px 0;
+        }
+        
+        .contact-methods {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        
+        .contact-method {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 30px 20px;
+            margin: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .contact-method i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .contact-method h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .contact-method p {
+            color: var(--gray);
+        }
+        
+        .contact-method a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .contact-method a:hover {
+            color: var(--accent);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+            padding: 0 15px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-column p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #adb5bd;
+        }
+        
+        .footer-links a {
+            display: block;
+            color: #adb5bd;
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #4a4a4a;
+            margin-top: 30px;
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            nav ul li {
+                margin-left: 15px;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .feature {
+                min-width: 100%;
+                margin-bottom: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+            }
+            
+            .catalog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <h1>Distri<span>cubiertas</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Inicio</a></li>
+                    <li><a href="#catalog">Catálogo</a></li>
+                    <li><a href="#about">Nosotros</a></li>
+                    <li><a href="#contact">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <h2>Todo en cubiertas. Fácil. Rápido. Directo.</h2>
+            <p>Accede de inmediato a nuestro catálogo actualizado de cubiertas al mayor, con imágenes reales y precios altamente competitivos. Olvídate de las esperas: aquí tienes toda la información que necesitas en un solo lugar, listo para cotizar y realizar tu pedido de manera fácil y rápida.</p>
+            <a href="#catalog" class="btn">Ver Catálogo</a>
+        </div>
+    </section>
+    
+    <!-- Features -->
+    <section class="features">
+        <div class="container features-container">
+            <div class="feature">
+                <i class="fas fa-check-circle"></i>
+                <h3>Calidad garantizada</h3>
+                <p>Materiales certificados y durables para todo tipo de clientes.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-truck"></i>
+                <h3>Entregas rápidas</h3>
+                <p>Distribución eficiente y puntual en todo el territorio colombiano.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-headset"></i>
+                <h3>Atención personalizada</h3>
+                <p>Acompañamiento experto para tomar la mejor decisión.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Catalog -->
+    <section id="catalog" class="catalog">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestro Catálogo</h2>
+            </div>
+            
+            <div class="catalog-nav">
+                <div class="catalog-nav-item active" data-category="all">Todas</div>
+                <div class="catalog-nav-item" data-category="clasica">Cubiertas Clasica</div>
+                <div class="catalog-nav-item" data-category="ravegallo">Cubiertas Ravegallo</div>
+                <div class="catalog-nav-item" data-category="puntas">Cubiertas puntas</div>
+                <div class="catalog-nav-item" data-category="macheton">Cubiertas Macheton</div>
+                <div class="catalog-nav-item" data-category="machetilla">Cubiertas Machetilla</div>
+                <div class="catalog-nav-item" data-category="peinilla">Cubiertas Peinilla</div>
+                <div class="catalog-nav-item" data-category="militar">Cubiertas Militar</div>
+                <div class="catalog-nav-item" data-category="amarilla-negra">Cubiertas Amarilla y Negra</div>
+            </div>
+            
+            <div class="catalog-grid">
+                <!-- Producto 1 -->
+                <div class="product-card; peinilla; ravegallo; macheton; machetilla; militar">
+                    <div class="product-img">
+                        <img src="images/ravegallo.jpeg" alt="ravegallo" onclick="this.requestFullscreen();">
+                    </div>
+                    <div class="product-details">
+                        <h3>Cubierta ravegallo militar</h3>
+                        <div class="product-specs">
+                            <p><strong>Diseños:</strong> peinilla, Machetilla, Macheton</p>
+                            <p><strong>Medidas:</strong> #12-#14-#16-#18-#20</p>
+                            <p><strong>Material:</strong> 100% cuero real </p> 
+                            <strong>Uso:</strong> la cubierta es un accesorio esencial para proteger y transportar machetes de manera segura y cómoda. Fabricada con materiales resistentes como el cuero. Evita el desgaste de la hoja, reduce el riesgo de accidentes y facilita el manejo del machete. Además, en algunas regiones, las cubiertas cuentan con diseños decorativos, combinando funcionalidad y tradición.</p>
+                        </div>
+                        <a href="https://wa.me/+573238241243?text=Me%20interesa%20la%20Cubierta%20rabo%20gallo" class="cta-btn">Solicitar cotización</a>
+                    </div>
+                </div>
+                
+                <!-- Producto 2 -->
+                <div class="product-card; clasica; peinilla">
+                    <div class="product-img">
+                        <img src="images/trescanales.jpeg" alt="trescanales"onclick="this.requestFullscreen();">
+                    </div>
+                    <div class="product-details">
+                        <h3>Tres canales</h3>
+                        <div class="product-specs">
+                            <p><strong>Diseño:</strong> Clasica, Peinilla</p>
+                            <p><strong>Medidas:</strong> #12-#14-#16-#18-#20 y otras</p>
+                            <p><strong>Material:</strong> 100% cuero real</p>
+                            <strong>Uso:</strong> la cubierta es un accesorio esencial para proteger y transportar machetes de manera segura y cómoda. Fabricada con materiales resistentes como el cuero. Evita el desgaste de la hoja, reduce el riesgo de accidentes y facilita el manejo del machete. Además, en algunas regiones, las cubiertas cuentan con diseños decorativos, combinando funcionalidad y tradición.</p>
+                        </div>
+                        <a href="https://wa.me/+573238241243?text=Me%20interesa%20la%20Cubierta%20tres%20canales" class="cta-btn">Solicitar cotización</a>
+                    </div>
+                </div>
+                
+                <!-- Producto 3 -->
+                <div class="product-card; puntas ;peinilla">
+                    <div class="product-img">
+                        <img src="images/puntas.jpeg" alt="sesentapuntas"onclick="this.requestFullscreen();">
+                    </div>
+                    <div class="product-details">
+                        <h3>Cubierta sesenta puntas</h3>
+                        <div class="product-specs">
+                            <p><strong>Medidas:</strong>  #12-#14-#16-#18-#20 y otras</p>
+                            <p><strong>Diseño:</strong> Peinilla</p>
+                            <p><strong>Material:</strong> 100% cuero real</p>
+                            <strong>Uso:</strong> la cubierta es un accesorio esencial para proteger y transportar machetes de manera segura y cómoda. Fabricada con materiales resistentes como el cuero. Evita el desgaste de la hoja, reduce el riesgo de accidentes y facilita el manejo del machete. Además, en algunas regiones, las cubiertas cuentan con diseños decorativos, combinando funcionalidad y tradición.</p>
+                        </div>
+                        <a href="https://wa.me/+573238241243?text=Me%20interesa%20la%20Cubierta%2060%20puntas" class="cta-btn">Solicitar cotización</a>
+                    </div>
+                </div>
+                
+                <!-- Producto 4 -->
+                <div class="product-card; peinilla">
+                    <div class="product-img">
+                        <img src="images/tres.jpeg" alt="peinillatrescanales"onclick="this.requestFullscreen();">
+                    </div>
+                    <div class="product-details">
+                        <h3>Cubierta peinilla tres canales</h3>
+                        <div class="product-specs">
+                            <p><strong>Medidas:</strong> #12-#14-#16-#18-#20 y otras</p>
+                            <p><strong>Material:</strong> 100% cuero real</p>
+                            <strong>Uso:</strong> la cubierta es un accesorio esencial para proteger y transportar machetes de manera segura y cómoda. Fabricada con materiales resistentes como el cuero. Evita el desgaste de la hoja, reduce el riesgo de accidentes y facilita el manejo del machete. Además, en algunas regiones, las cubiertas cuentan con diseños decorativos, combinando funcionalidad y tradición.</p>
+                        </div>
+                        <a href="https://wa.me/+573238241243?text=Me%20interesa%20la%20Cubierta%20peinilla%20Tres%20canales" class="cta-btn">Solicitar cotización</a>
+                    </div>
+                </div>
+                
+                <!-- Producto 5 -->
+                <div class="product-card; macheton; amarilla-negra">
+                    <div class="product-img">
+                        <img src="images/macheton.jpeg" alt="Macheton"onclick="this.requestFullscreen();">
+                    </div>
+                    <div class="product-details">
+                        <h3>Cubierta macheton o chapo</h3>
+                        <div class="product-specs">
+                            <p><strong>Medidas:</strong> #12-#14-#16-#18-#20 </p>
+                            <p><strong>Colores:</strong> negra y amarilla</p>
+                            <p><strong>Material:</strong> 100% cuero real</p>
+                            <strong>Uso:</strong> la cubierta es un accesorio esencial para proteger y transportar machetes de manera segura y cómoda. Fabricada con materiales resistentes como el cuero. Evita el desgaste de la hoja, reduce el riesgo de accidentes y facilita el manejo del machete. Además, en algunas regiones, las cubiertas cuentan con diseños decorativos, combinando funcionalidad y tradición.</p>
+                        </div>
+                        <a href="https://wa.me/+57 3238241243?text=Me%20interesa%20la%20Cubierta%20macheton o chapo" class="cta-btn">Solicitar cotización</a>
+                    </div>
+                </div>
+                
+                <!-- Producto 6 -->
+                <div class="product-card; peinilla; machetilla; puntas">
+                    <div class="product-img">
+                        <img src="images/40.jpeg" alt="40 puntas"onclick="this.requestFullscreen();">
+                    </div>
+                    <div class="product-details">
+                        <h3>Cubierta cuarenta puntas</h3>
+                        <div class="product-specs">
+                            <p><strong>Medidas:</strong> #12-#14-#16-#18-#20</p>
+                            <p><strong>Diseño:</strong>
+                            peinilla y machetilla</p>
+                            <p><strong>Material:</strong> 100% cuero real</p>
+                            <strong>Uso:</strong> La cubierta es un accesorio esencial para proteger y transportar machetes de manera segura y cómoda. Fabricada con materiales resistentes como el cuero. Evita el desgaste de la hoja, reduce el riesgo de accidentes y facilita el manejo del machete. Además, en algunas regiones, las cubiertas cuentan con diseños decorativos, combinando funcionalidad y tradición.</p>
+                        </div>
+                        <a href="https://wa.me/+573238241243?text=Me%20interesa%20la%20Cubierta%20cuarenta%20puntas" class="cta-btn">Solicitar cotización</a>
+                    </div>
+                </div>
+                
+                <!-- Producto 7 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="images/n6.jpeg" alt="Numero 6"onclick="this.requestFullscreen();">
+                    </div>
+                    <div class="product-details">
+                        <h3>Cubierta Numero 6</h3>
+                        <div class="product-specs">
+                            <p><strong>Medidas:</strong> #6</p>
+                            <p><strong>Material:</strong> 100% cuero real</p>
+                            <strong>Uso:</strong> la cubierta es un accesorio esencial para proteger y transportar machetes de manera segura y cómoda. Fabricada con materiales resistentes como el cuero. Evita el desgaste de la hoja, reduce el riesgo de accidentes y facilita el manejo del machete. Además, en algunas regiones, las cubiertas cuentan con diseños decorativos, combinando funcionalidad y tradición.</p>
+                        </div>
+                        <a href="https://wa.me+573238241243?text=Me%20interesa%20la%20Cubierta%20Numero%206" class="cta-btn">Solicitar cotización</a>
+                    </div>
+                </div>
+                
+                <!-- Producto 8 -->
+                <div class="product-card; machetilla; peinilla">
+                    <div class="product-img">
+                        <img src="images/ralla.jpeg" alt="rallarajada" onclick="this.requestFullscreen();">>
+                    </div>
+                    <div class="product-details">
+                        <h3>Cubierta callarajada</h3>
+                        <div class="product-specs">
+                            <p><strong>Medidas:</strong>  #12-#14-#16-#18-#20 y otras</p>
+                            <p><strong>Diseño:</strong> Peinilla y Machetilla</p>
+                            <p><strong>Material:</strong> 100% cuero real</p>
+                            <strong>Uso:</strong> la cubierta es un accesorio esencial para proteger y transportar machetes de manera segura y cómoda. Fabricada con materiales resistentes como el cuero. Evita el desgaste de la hoja, reduce el riesgo de accidentes y facilita el manejo del machete. Además, en algunas regiones, las cubiertas cuentan con diseños decorativos, combinando funcionalidad y tradición.</p>
+                        </div>
+                        <a href="https://wa.me/+573238241243?text=Me%20interesa%20el%20Cubierta%20%20ralla%20rajada" class="cta-btn">Solicitar cotización</a>
+                    </div>
+                </div>
+
+               <!-- Producto 9 -->
+                <div class="product-card; machetilla ; amarilla-negra; militar; peinilla">
+                    <div class="product-img">
+                        <img src="images/che.jpeg" alt="che" onclick="this.requestFullscreen();">
+                    </div>
+                    <div class="product-details">
+                        <h3>Cubierta del che</h3>
+                        <div class="product-specs">
+                            <p><strong>Diseños:</strong> Peinilla, Machetilla, militar, negra y amarilla</p>
+                            <p><strong>Medidas:</strong> #12-#14-#16-#18-#20</p>
+                            <p><strong>Material:</strong> 100% cuero real</p>
+                            <strong>Uso:</strong> la cubierta es un accesorio esencial para proteger y transportar machetes de manera segura y cómoda. Fabricada con materiales resistentes como el cuero. Evita el desgaste de la hoja, reduce el riesgo de accidentes y facilita el manejo del machete. Además, en algunas regiones, las cubiertas cuentan con diseños decorativos, combinando funcionalidad y tradición.</p>
+                        </div>
+                        <a href="https://wa.me/+573238241243?text=Me%20interesa%20la%20Cubierta%20del%20che" class="cta-btn">Solicitar cotización</a>
+                    </div>
+                </div>
+
+                <!-- Producto 10 -->
+                <div class="product-card; peinilla; machetilla; clasica">
+                    <div class="product-img">
+                        <img src="images/otros.jpeg" alt="che" onclick="this.requestFullscreen();">
+                    </div>
+                    <div class="product-details">
+                        <h3>Cubierta de otros colores</h3>
+                        <div class="product-specs">
+                            <p><strong>Diseños:</strong> Machetilla, Peinilla, Clasica</p>
+                            <p><strong>Medidas:</strong> #12-#14-#16-#18-#20</p>
+                            <p><strong>Material:</strong> 100% cuero real</p>
+                            <strong>Uso:</strong> La cubierta es un accesorio esencial para proteger y transportar machetes de manera segura y cómoda. Fabricada con materiales resistentes como el cuero. Evita el desgaste de la hoja, reduce el riesgo de accidentes y facilita el manejo del machete. Además, en algunas regiones, las cubiertas cuentan con diseños decorativos, combinando funcionalidad y tradición.</p>
+                        </div>
+                        <a href="https://wa.me/+573238241243?text=Me%20interesa%20la%20Cubierta%20de%20otros%20colores" class="cta-btn">Solicitar cotización</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Us -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="images/logo.png" alt="Districubiertas - Quiénes somos">
+                </div>
+                <div class="about-text">
+                    <h2>Quiénes Somos</h2>
+                    <p>En <strong>Districubiertas</strong> somos distribuidores especializados en soluciones para cubiertas y techados con más de 15 años de experiencia en el sector.</p>
+                    <p>Nos destacamos por ofrecer productos de calidad certificada, asesoramiento técnico personalizado y un servicio de entrega eficiente que nos ha ganado la confianza de profesionales de la construcción, arquitectos, empresas constructoras y clientes particulares.</p>
+                    <p>Nuestra misión es simple: proporcionar las mejores soluciones en cubiertas para todo tipo de proyectos, garantizando calidad, durabilidad y el mejor servicio al cliente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contacto</h2>
+            </div>
+            
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>WhatsApp</h3>
+                    <p>Respuesta inmediata</p>
+                    <a href="https://wa.me/+573238241243">+57 3238241243</a>
+                </div>
+                <div class="contact-method">
+                    <i class="fas fa-phone-alt"></i>
+                    <h3>Teléfono</h3>
+                    <p>Atención personalizada</p>
+                    <a href="tel:+573238241243">+57 3238241243</a>
+                </div>
+                <div class="contact-method">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Ubicación</h3>
+                    <a href="#">colombia. Ciudad: Cucuta</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-column">
+                <h3>Districubiertas</h3>
+                <p>Tu catálogo confiable de cubiertas al instante. Ofrecemos calidad, variedad y los mejores precios del mercado.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Enlaces rápidos</h3>
+                <div class="footer-links">
+                    <a href="#home">Inicio</a>
+                    <a href="#catalog">Catálogo</a>
+                    <a href="#about">Nosotros</a>
+                    <a href="#contact">Contacto</a>
+                </div>
+            </div>
+           
+            </div>
+            <div class="footer-column">
+                <h3>Horario de atención</h3>
+                <p>Lunes a Viernes: 8:00 AM - 6:00 PM</p>
+                <p>Sábados: 9:00 AM - 1:00 PM</p>
+                <p>Domingos: Cerrado</p>
+            </div>
+        </div>
+        <div class="container copyright">
+            <p>&copy; 2025 Districubiertas. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const navItems = document.querySelectorAll('.catalog-nav-item');
+        const products = document.querySelectorAll('.product-card');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Remueve clase activa anterior
+                navItems.forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+
+                const category = item.getAttribute('data-category');
+
+                products.forEach(product => {
+                    if (category === 'all') {
+                        product.style.display = 'block';
+                    } else {
+                        if (product.classList.contains(category)) {
+                            product.style.display = 'block';
+                        } else {
+                            product.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+    });
+</script>
+<script>
+        // Simple catalog filter functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const navItems = document.querySelectorAll(".catalog-nav-item");
+            const productCards = document.querySelectorAll(".product-card");
+
+            navItems.forEach(item => {
+                item.addEventListener("click", () => {
+                    // quitar la clase de 'active' de todos los botones que hice
+                    navItems.forEach(i => i.classList.remove("active"));
+                    item.classList.add("active");
+
+                    const selectedCategory = item.textContent.trim().toLowerCase();
+                     if (selectedCategory === "todas" || title.includes(selectedCategory)) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+                   }
+                });
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
