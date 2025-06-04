@@ -561,7 +561,7 @@
             
             <div class="catalog-grid">
                 <!-- Producto 1 -->
-                <div class="product-card; peinilla; ravegallo; macheton; machetilla; militar">
+                <div class="product-card peinilla ravegallo macheton machetilla militar">
                     <div class="product-img">
                         <img src="images/ravegallo.jpeg" alt="ravegallo" onclick="this.requestFullscreen();">
                     </div>
@@ -578,7 +578,7 @@
                 </div>
                 
                 <!-- Producto 2 -->
-                <div class="product-card; clasica; peinilla">
+                <div class="product-card clasica peinilla">
                     <div class="product-img">
                         <img src="images/trescanales.jpeg" alt="trescanales"onclick="this.requestFullscreen();">
                     </div>
@@ -595,7 +595,7 @@
                 </div>
                 
                 <!-- Producto 3 -->
-                <div class="product-card; puntas ;peinilla">
+                <div class="product-card puntas peinilla">
                     <div class="product-img">
                         <img src="images/puntas.jpeg" alt="sesentapuntas"onclick="this.requestFullscreen();">
                     </div>
@@ -612,7 +612,7 @@
                 </div>
                 
                 <!-- Producto 4 -->
-                <div class="product-card; peinilla">
+                <div class="product-card peinilla">
                     <div class="product-img">
                         <img src="images/tres.jpeg" alt="peinillatrescanales"onclick="this.requestFullscreen();">
                     </div>
@@ -628,7 +628,7 @@
                 </div>
                 
                 <!-- Producto 5 -->
-                <div class="product-card; macheton; amarilla-negra">
+                <div class="product-card macheton amarilla-negra">
                     <div class="product-img">
                         <img src="images/macheton.jpeg" alt="Macheton"onclick="this.requestFullscreen();">
                     </div>
@@ -645,7 +645,7 @@
                 </div>
                 
                 <!-- Producto 6 -->
-                <div class="product-card; peinilla; machetilla; puntas">
+                <div class="product-card peinilla machetilla puntas">
                     <div class="product-img">
                         <img src="images/40.jpeg" alt="40 puntas"onclick="this.requestFullscreen();">
                     </div>
@@ -674,12 +674,12 @@
                             <p><strong>Material:</strong> 100% cuero real</p>
                             <strong>Uso:</strong> la cubierta es un accesorio esencial para proteger y transportar machetes de manera segura y cómoda. Fabricada con materiales resistentes como el cuero. Evita el desgaste de la hoja, reduce el riesgo de accidentes y facilita el manejo del machete. Además, en algunas regiones, las cubiertas cuentan con diseños decorativos, combinando funcionalidad y tradición.</p>
                         </div>
-                        <a href="https://wa.me+573238241243?text=Me%20interesa%20la%20Cubierta%20Numero%206" class="cta-btn">Solicitar cotización</a>
+                        <a href="https://wa.me/+573238241243?text=Me%20interesa%20la%20Cubierta%20Numero%206" class="cta-btn">Solicitar cotización</a>
                     </div>
                 </div>
                 
                 <!-- Producto 8 -->
-                <div class="product-card; machetilla; peinilla">
+                <div class="product-card machetilla peinilla">
                     <div class="product-img">
                         <img src="images/ralla.jpeg" alt="rallarajada" onclick="this.requestFullscreen();">>
                     </div>
@@ -696,7 +696,7 @@
                 </div>
 
                <!-- Producto 9 -->
-                <div class="product-card; machetilla ; amarilla-negra; militar; peinilla">
+                <div class="product-card machetilla  amarilla-negra militar peinilla">
                     <div class="product-img">
                         <img src="images/che.jpeg" alt="che" onclick="this.requestFullscreen();">
                     </div>
@@ -713,7 +713,7 @@
                 </div>
 
                 <!-- Producto 10 -->
-                <div class="product-card; peinilla; machetilla; clasica">
+                <div class="product-card peinilla machetilla clasica">
                     <div class="product-img">
                         <img src="images/otros.jpeg" alt="che" onclick="this.requestFullscreen();">
                     </div>
@@ -836,38 +836,6 @@
         });
     });
 </script>
-<script>
-        // Simple catalog filter functionality
-        document.addEventListener('DOMContentLoaded', () => {
-            const navItems = document.querySelectorAll(".catalog-nav-item");
-            const productCards = document.querySelectorAll(".product-card");
 
-            navItems.forEach(item => {
-                item.addEventListener("click", () => {
-                    // quitar la clase de 'active' de todos los botones que hice
-                    navItems.forEach(i => i.classList.remove("active"));
-                    item.classList.add("active");
-
-                    const selectedCategory = item.textContent.trim().toLowerCase();
-                     if (selectedCategory === "todas" || title.includes(selectedCategory)) {
-            card.style.display = "block";
-          } else {
-            card.style.display = "none";
-                   }
-                });
-            });
-            
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
-        });
-    </script>
 </body>
 </html>
